@@ -65,7 +65,7 @@ public class HandlerSend implements Runnable{
 			out.write(strxml.getBytes());
 			out.flush();
 			out.close();
-			Thread.sleep(1000);
+			Thread.sleep(2000);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

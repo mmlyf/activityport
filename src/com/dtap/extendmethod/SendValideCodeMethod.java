@@ -17,13 +17,13 @@ import com.sun.org.apache.xml.internal.security.utils.Base64;
 public class SendValideCodeMethod {
 	private static Logger log = Logger.getLogger(SendValideCodeMethod.class);
 	private static ExecutorService pool = Executors.newSingleThreadExecutor();
+	private static boolean result;
+	private static String sendmsg = "";
 	static {
 		PropertyConfigurator.configure(Thread.currentThread().getContextClassLoader().getResource("log.properties").getPath());
 	}
 	public static boolean sendCode(String phone,String state) {
-		boolean result;
 		String vailcode = getVailiCode();
-		String sendmsg = "";
 		if (!state.equals("")) {
 			sendmsg = "【视频会员抽奖验证码】"+vailcode+"，请在5分钟 内使用。";
 		}else {
@@ -31,15 +31,17 @@ public class SendValideCodeMethod {
 		}
 		System.out.println("phoneNum==========="+phone);
 		System.out.println("messageCount==========="+sendmsg);
-		Thread thread = new Thread(new HandlerSend(phone, sendmsg,0));
-		thread.start();
-		try {
-			Thread.currentThread().sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		result = ValideCodeDBOperation.insertVaildCodeToDB(vailcode, phone);
+		pool.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Thread thread = new Thread(new HandlerSend(phone, sendmsg,0));
+				thread.start();
+				result = ValideCodeDBOperation.insertVaildCodeToDB(vailcode, phone);
+			}
+		});
+		
 		return result;
 	}
 	
