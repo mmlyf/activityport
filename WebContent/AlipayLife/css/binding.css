@@ -1,0 +1,129 @@
+*{
+    padding: 0px;
+    margin: 0px;
+}
+.header{
+    width: 100%
+}
+.header img{
+    width: 100%;
+    height: 100%;
+}
+.hederTitle{
+    width: 100%;
+    margin-top: 0.3rem;
+    text-align: center;
+    border-bottom: 8px solid #E4E4E4;
+    padding-bottom: 0.55rem;
+}
+.hederTitle span{
+    border-bottom: solid #199ED7 1px;
+    padding-bottom: 5px;
+}
+.content{
+    width: 100%;
+}
+.numData{
+    /* border: 2px solid #E4E4E4; */
+    border-bottom: 1px solid #E4E4E4;
+    border-top:  1px solid #E4E4E4;
+    height: 0.7rem;
+    margin-right: 4%;       
+    margin-left: 4%;
+    margin-top: 0.2rem;
+}
+.numLeft{
+    float: left;
+    width: 21%;
+    height: 100%;
+    line-height: 0.7rem;
+}
+.numRight{
+    float: right;
+    width: 77%;
+    height: 100%;
+}
+#phone{
+    height: 100%;
+    line-height: 0.7rem;
+    border: 0px;
+}
+#code{
+    height: 100%;
+    line-height: 0.7rem;
+    border: 0px;
+}
+.codeData{
+    border-bottom: 1px solid #E4E4E4;
+    /* border-left:  2px solid #E4E4E4; */
+    /* border-right:  2px solid #E4E4E4; */
+    height: 0.7rem;
+    margin-right: 4%;       
+    margin-left: 4%;
+}
+.codeRight{
+    float: left;
+    width: 42%;
+    height: 100%;
+    
+}
+.getCode{
+    float: right;
+    width: 34%;
+    height: 100%;
+    line-height: 0.7rem;
+    border-left:  1px solid #E4E4E4;
+    text-align: center;
+    
+}
+.codeLeft{
+    float: left;
+    width: 22%;
+    height: 100%;
+    line-height: 0.7rem;
+}
+.btn{
+    margin-right: 4%;       
+    margin-left: 4%;
+    margin-top: 0.2rem;
+   
+}
+#btn{
+    width: 100%;
+    height: 1rem;
+    font-size: 0.4rem;
+}
+#chose{
+    margin-left: 25%;
+    margin-top: 0.2rem;
+    
+}
+.reader{
+    margin-right: 4%;       
+    margin-left: 4%;
+    margin-top: 0.6rem;
+    color: gray;
+    font-size: 0.15rem;
+}
+.msg{
+    position: fixed;
+    /* display: inline-block; */
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+    background-color: #4C4C4C;
+    /* top: 56%;
+    left: 34%; */
+    color: white;
+
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+
+    
+}
+.verifyBtn{
+    border: 0px;
+    background-color: white;
+}
