@@ -73,7 +73,7 @@ public class EquityFileTimeTask extends TimerTask {
 			}else {
 				for(TBEquityData tbEquityData:list) {
 					if (tbEquityData.getSource()==3) {
-						Integer bssstate = OrdersDBOperation.selectDataState(tbEquityData.getDn());
+						Integer bssstate = OrdersDBOperation.selectDataState(tbEquityData.getDn(),tbEquityData.getAddtime());
 						if (bssstate!=null&&bssstate==0) {
 							String str = tbEquityData.getQyId()+"|"
 									+tbEquityData.getDn()+"|"

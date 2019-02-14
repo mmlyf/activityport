@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -211,10 +213,22 @@ public class OrdersDBOperation {
 		return totalres;
 	}
 	
-	
-	public static int selectDataState(String phone) {
+	/**
+	 * 查询新春红包活动权益添加时间的30秒的时间间隔是否有订购记录
+	 * 并且返回订购记录状态
+	 * @param phone
+	 * @param date
+	 * @return
+	 */
+	public static int selectDataState(String phone,Date date) {
 		Connection conn = GetConnect.getConnection();
-		String sql = "select * from orders where Mobile='"+phone+"' AND ProductId='3c40d03b-0d06-4e5b-82be-1ca2f59f338c'";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String starttime = sdf.format(date);
+		long time = date.getTime() + 30*1000;
+		date = new Date(time);
+		String endtime = sdf.format(date);
+		String sql = "select * from orders where Mobile='"+phone+"' AND ProductId='3c40d03b-0d06-4e5b-82be-1ca2f59f338c' "
+				+ "AND AddTime >= '"+starttime+"' AND AddTime <= '"+endtime+"' ORDER BY AddTime DESC";
 		Integer bssstate = null;
 		try {
 			Statement statement = conn.createStatement();
@@ -228,5 +242,14 @@ public class OrdersDBOperation {
 			e.printStackTrace();
 		}
 		return bssstate;
+	}
+	
+	public static void main(String[] args) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		System.out.println(sdf.format(date));
+		long time = date.getTime() + 30*1000;
+		date = new Date(time);
+		System.out.println(sdf.format(date));
 	}
 }
