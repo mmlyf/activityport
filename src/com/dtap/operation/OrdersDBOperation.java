@@ -220,15 +220,11 @@ public class OrdersDBOperation {
 	 * @param date
 	 * @return
 	 */
-	public static int selectDataState(String phone,Date date) {
+	public static Integer selectDataState(String phone,String starttime,String endtime) {
 		Connection conn = GetConnect.getConnection();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String starttime = sdf.format(date);
-		long time = date.getTime() + 30*1000;
-		date = new Date(time);
-		String endtime = sdf.format(date);
+		
 		String sql = "select * from orders where Mobile='"+phone+"' AND ProductId='3c40d03b-0d06-4e5b-82be-1ca2f59f338c' "
-				+ "AND AddTime >= '"+starttime+"' AND AddTime <= '"+endtime+"' ORDER BY AddTime DESC";
+				+ "AND AddTime >= '"+starttime+"' AND AddTime <= '"+endtime+"' and BssState=0 ORDER BY AddTime DESC";
 		Integer bssstate = null;
 		try {
 			Statement statement = conn.createStatement();

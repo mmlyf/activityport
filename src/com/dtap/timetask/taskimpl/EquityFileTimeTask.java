@@ -73,7 +73,14 @@ public class EquityFileTimeTask extends TimerTask {
 			}else {
 				for(TBEquityData tbEquityData:list) {
 					if (tbEquityData.getSource()==3) {
-						Integer bssstate = OrdersDBOperation.selectDataState(tbEquityData.getDn(),tbEquityData.getAddtime());
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date equityaddtime = tbEquityData.getAddtime();
+						String starttime = sdf.format(equityaddtime);
+						long time = equityaddtime.getTime() + 20*1000;
+						Date orderstime = new Date(time);
+						String endtime = sdf.format(orderstime);
+						Integer bssstate = OrdersDBOperation.selectDataState(tbEquityData.getDn(),starttime,endtime);
+						log.info("bssstate的状态值是："+bssstate);
 						if (bssstate!=null&&bssstate==0) {
 							String str = tbEquityData.getQyId()+"|"
 									+tbEquityData.getDn()+"|"
