@@ -43,7 +43,7 @@ public class MTAndFRTAndIFTimeListen implements ServletContextListener {
 		int year = calendar.get(Calendar.YEAR);
 		int month = calendar.get(Calendar.MONTH);
 		int day = calendar.get(Calendar.DATE);
-		calendar.set(year, month, day, 02, 10, 00);
+		calendar.set(year, month, day, 23, 10, 00);
 		Date date = calendar.getTime();
 		if (date.before(new Date())) {
 			date = TimeTaskProcess.addDay(date, 1);
