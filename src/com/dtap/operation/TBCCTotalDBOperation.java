@@ -24,11 +24,13 @@ public class TBCCTotalDBOperation {
 	 * @param sectime
 	 * @return
 	 * 根据特定的type值查询数量
+	 * 信用卡办理2.0
+	 * 
 	 * 
 	 */
 	public static Integer selectCountByType(String type,String sectime) {
 		Connection con = GetConnect.getAliConnection();
-		String sql = "select * from tb_cctotal where addtime ='"+sectime+"'";
+		String sql = "select * from tb_cctotal_two where addtime ='"+sectime+"'";
 		Integer selres = null;
 		try {
 			Statement statement = con.createStatement();
@@ -36,65 +38,65 @@ public class TBCCTotalDBOperation {
 			while(resultSet.next()) {
 				switch (type) {
 				case "1"://大页面的pv
-					selres = resultSet.getInt("b_pv");
+					selres = resultSet.getInt("pv");
 					break;
 				case "2"://立即申请的bc
-					selres = resultSet.getInt("li_allbc");
+					selres = resultSet.getInt("bc");
 					break;
-				case "3"://弹框中的bc
-					selres = resultSet.getInt("tan_seebc");
+				case "3"://低消
+					selres = resultSet.getInt("see_dx");
 					break;
-				case "4"://弹框中ice的pv
-					selres = resultSet.getInt("tan_seeicepv");
+				case "4"://冰淇淋流量包
+					selres = resultSet.getInt("see_llb");
 					break;
-				case "5"://弹框中dx的pv
-					selres = resultSet.getInt("tan_seedxpv");
+				case "5"://多日包
+					selres = resultSet.getInt("see_muti");
 					break;
-				case "6"://点击去看看的冰淇淋预约的bc
-					selres = resultSet.getInt("tanli_icebc");
+				case "6"://特惠包
+					selres = resultSet.getInt("see_tehui");
 					break;
-				case "7"://点击去看看的低消的订购bc
-					selres = resultSet.getInt("tanli_dxbc");
-					break;
-				case "8"://关闭弹框后信用卡的pv
-					selres = resultSet.getInt("ccc_pv");
-					break;
-				case "9"://点击立即申请后号码不在号池内的信用卡的pv
-					selres = resultSet.getInt("li_npccpv");
-					break;
-				case "10"://直接点击去看看的冰淇淋页面pv
-					selres = resultSet.getInt("see_icepv");
-					break;
-				case "11"://直接点击去看看低消的页面pv
-					selres = resultSet.getInt("see_dxpv");
-					break;
-				case "12"://冰淇淋预约数
-					selres = resultSet.getInt("ice_bookc");
-					break;
-				case "13"://低消订购成功数
-					selres = resultSet.getInt("dx_ordersucc");
-					break;
-				case "14"://低消订购失败数
-					selres = resultSet.getInt("dx_ordersunsucc");
-					break;
-				case "15"://短信下发的用户数
-					selres = resultSet.getInt("sm_sendc");
-					break;
-				case "16"://流量包页面pv
-					selres = resultSet.getInt("see_llbpv");
-					break;
-				case "17"://6.6元流量包订购数量
-					selres = resultSet.getInt("six_orderc");
-					break;
-				case "18"://9.9元流量包订购数	
-					selres = resultSet.getInt("nine_orderc");
-					break;
-				case "19"://多日包快点点击按钮数
-					selres = resultSet.getInt("muti_bc");
-					break;
-				case "20"://特惠流量包订购点击按钮数
-					selres = resultSet.getInt("tehui_bc");
-					break;
+//				case "7"://点击去看看的低消的订购bc
+//					selres = resultSet.getInt("tanli_dxbc");
+//					break;
+//				case "8"://关闭弹框后信用卡的pv
+//					selres = resultSet.getInt("ccc_pv");
+//					break;
+//				case "9"://点击立即申请后号码不在号池内的信用卡的pv
+//					selres = resultSet.getInt("li_npccpv");
+//					break;
+//				case "10"://直接点击去看看的冰淇淋页面pv
+//					selres = resultSet.getInt("see_icepv");
+//					break;
+//				case "11"://直接点击去看看低消的页面pv
+//					selres = resultSet.getInt("see_dxpv");
+//					break;
+//				case "12"://冰淇淋预约数
+//					selres = resultSet.getInt("ice_bookc");
+//					break;
+//				case "13"://低消订购成功数
+//					selres = resultSet.getInt("dx_ordersucc");
+//					break;
+//				case "14"://低消订购失败数
+//					selres = resultSet.getInt("dx_ordersunsucc");
+//					break;
+//				case "15"://短信下发的用户数
+//					selres = resultSet.getInt("sm_sendc");
+//					break;
+//				case "16"://流量包页面pv
+//					selres = resultSet.getInt("see_llbpv");
+//					break;
+//				case "17"://6.6元流量包订购数量
+//					selres = resultSet.getInt("six_orderc");
+//					break;
+//				case "18"://9.9元流量包订购数	
+//					selres = resultSet.getInt("nine_orderc");
+//					break;
+//				case "19"://多日包快点点击按钮数
+//					selres = resultSet.getInt("muti_bc");
+//					break;
+//				case "20"://特惠流量包订购点击按钮数
+//					selres = resultSet.getInt("tehui_bc");
+//					break;
 				default:
 					break;
 				}
@@ -119,68 +121,68 @@ public class TBCCTotalDBOperation {
 	public static boolean updateCountByType(String type,int value,String sectime) {
 		Connection con = GetConnect.getAliConnection();
 		Integer upres = 0;
-		String sql = "update tb_cctotal set ";
+		String sql = "update tb_cctotal_two set ";
 		switch (type) {
 		case "1"://大页面的pv
-			sql += "b_pv="+value;
+			sql += "pv="+value;
 			break;
 		case "2"://立即申请的bc
-			sql += "li_allbc="+value;
+			sql += "bc="+value;
 			break;
-		case "3"://弹框中的bc
-			sql += "tan_seebc="+value;
+		case "3"://低消去看看按钮数
+			sql += "see_dx="+value;
 			break;
-		case "4"://弹框中ice的pv
-			sql += "tan_seeicepv="+value;
+		case "4"://流量包去看看按钮数
+			sql += "see_llb="+value;
 			break;
-		case "5"://弹框中dx的pv
-			sql += "tan_seedxpv="+value;
+		case "5"://多日包去看看按钮数
+			sql += "see_muti="+value;
 			break;
-		case "6"://点击去看看的冰淇淋预约的bc
-			sql += "tanli_icebc="+value;
+		case "6"://特惠包去看看按钮数
+			sql += "see_tehui="+value;
 			break;
-		case "7"://点击去看看的低消的订购bc
-			sql += "tanli_dxbc="+value;
-			break;
-		case "8"://关闭弹框后信用卡的pv
-			sql += "ccc_pv="+value;
-			break;
-		case "9"://点击立即申请后号码不在号池内的信用卡的pv
-			sql += "li_npccpv="+value;
-			break;
-		case "10"://直接点击去看看的冰淇淋页面pv
-			sql += "see_icepv="+value;
-			break;
-		case "11"://直接点击去看看低消的页面pv
-			sql += "see_dxpv="+value;
-			break;
-		case "12"://冰淇淋预约数
-			sql += "ice_bookc="+value;
-			break;
-		case "13"://低消订购成功数
-			sql += "dx_ordersucc="+value;
-			break;
-		case "14"://低消订购失败数
-			sql += "dx_ordersunsucc="+value;
-			break;
-		case "15"://短信下发的用户数
-			sql += "sm_sendc="+value;
-			break;
-		case "16":
-			sql += "see_llbpv="+value;
-			break;
-		case "17":
-			sql += "six_orderc="+value;
-			break;
-		case "18":
-			sql += "nine_orderc="+value;
-			break;
-		case "19"://多日包按钮数
-			sql+="muti_bc="+value;
-			break;
-		case "20"://特惠包订购按钮数
-			sql+="tehui_bc="+value;
-			break;			
+//		case "7"://点击去看看的低消的订购bc
+//			sql += "tanli_dxbc="+value;
+//			break;
+//		case "8"://关闭弹框后信用卡的pv
+//			sql += "ccc_pv="+value;
+//			break;
+//		case "9"://点击立即申请后号码不在号池内的信用卡的pv
+//			sql += "li_npccpv="+value;
+//			break;
+//		case "10"://直接点击去看看的冰淇淋页面pv
+//			sql += "see_icepv="+value;
+//			break;
+//		case "11"://直接点击去看看低消的页面pv
+//			sql += "see_dxpv="+value;
+//			break;
+//		case "12"://冰淇淋预约数
+//			sql += "ice_bookc="+value;
+//			break;
+//		case "13"://低消订购成功数
+//			sql += "dx_ordersucc="+value;
+//			break;
+//		case "14"://低消订购失败数
+//			sql += "dx_ordersunsucc="+value;
+//			break;
+//		case "15"://短信下发的用户数
+//			sql += "sm_sendc="+value;
+//			break;
+//		case "16":
+//			sql += "see_llbpv="+value;
+//			break;
+//		case "17":
+//			sql += "six_orderc="+value;
+//			break;
+//		case "18":
+//			sql += "nine_orderc="+value;
+//			break;
+//		case "19"://多日包按钮数
+//			sql+="muti_bc="+value;
+//			break;
+//		case "20"://特惠包订购按钮数
+//			sql+="tehui_bc="+value;
+//			break;			
 		default:
 			break;
 		}
@@ -209,10 +211,12 @@ public class TBCCTotalDBOperation {
 	 */
 	public static boolean insertCountByTime(String sectime) {
 		Connection con = GetConnect.getAliConnection();
-		String sql = "insert into tb_cctotal"
-				+ "(b_pv,li_allbc,tan_seebc,tan_seeicepv,tan_seedxpv,tanli_icebc,tanli_dxbc,ccc_pv,li_npccpv,"
-				+ "see_icepv,see_dxpv,see_llbpv,ice_bookc,dx_ordersucc,dx_ordersunsucc,six_orderc,nine_orderc,sm_sendc,muti_bc,tehui_bc,addtime) "
-				+ "values(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'"+sectime+"')";
+//		String sql = "insert into tb_cctotal"
+//				+ "(b_pv,li_allbc,tan_seebc,tan_seeicepv,tan_seedxpv,tanli_icebc,tanli_dxbc,ccc_pv,li_npccpv,"
+//				+ "see_icepv,see_dxpv,see_llbpv,ice_bookc,dx_ordersucc,dx_ordersunsucc,six_orderc,nine_orderc,sm_sendc,muti_bc,tehui_bc,addtime) "
+//				+ "values(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'"+sectime+"')";
+		String sql = "insert into tb_cctotal_two"
+				+ " (pv,bc,see_dx,see_llb,see_muti,see_tehui,addtime) values(1,0,0,0,0,0,'"+sectime+"')";
 		int inres = 0;
 		try {
 			Statement statement = con.createStatement();

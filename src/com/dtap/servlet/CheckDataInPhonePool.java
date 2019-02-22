@@ -40,10 +40,10 @@ public class CheckDataInPhonePool extends HttpServlet {
 		response.addHeader("Access-Control-Allow-Origin", "*");
 		response.setContentType("text/html;charset=utf-8");
 		String phone = request.getParameter("phone");
-		String code = request.getParameter("code");
-		JSONObject validres = CheckVaildCodeMethod.checkValidCode(phone, code);
+//		String code = request.getParameter("code");
+//		JSONObject validres = CheckVaildCodeMethod.checkValidCode(phone, code);
 		JSONObject json = new JSONObject();
-		if (validres.getInt("code")==0) {
+//		if (validres.getInt("code")==0) {
 			Map<String, String> map = CheckDataIsInPhonePool.selectDataInPool(phone);
 			if (map!=null) {
 				json.put("code", 0);
@@ -51,22 +51,22 @@ public class CheckDataInPhonePool extends HttpServlet {
 				json.put("dangw", map.get("dw"));
 				json.put("type", map.get("type"));
 			}else {
-				json.put("code", 3);//验证码正确不在号池内
+				json.put("code", 1);//验证码正确不在号池内
 				json.put("product", "");
 				json.put("dangw", ""	);
 				json.put("type", "");
 			}
-		}else if(validres.getInt("code")==1) {
-			json.put("code", 1);//验证码不正确
-			json.put("product", "");
-			json.put("dangw", "");
-			json.put("type", "");
-		}else {
-			json.put("code", 2);//验证码超时
-			json.put("porduct", "");
-			json.put("dangw", "");
-			json.put("type", "");
-		}
+//		}else if(validres.getInt("code")==1) {
+//			json.put("code", 1);//验证码不正确
+//			json.put("product", "");
+//			json.put("dangw", "");
+//			json.put("type", "");
+//		}else {
+//			json.put("code", 2);//验证码超时
+//			json.put("porduct", "");
+//			json.put("dangw", "");
+//			json.put("type", "");
+//		}
 		PrintWriter pw = response.getWriter();
 		pw.write(json.toString());
 		pw.flush();

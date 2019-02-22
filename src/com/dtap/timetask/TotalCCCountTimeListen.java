@@ -50,17 +50,17 @@ public class TotalCCCountTimeListen implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg0)  { 
-         Calendar calendar = Calendar.getInstance();
-         int year = calendar.get(Calendar.YEAR);
-         int month = calendar.get(Calendar.MONTH);
-         int day = calendar.get(Calendar.DATE);
-         calendar.set(year, month, day, 23, 10, 00);
-         Date date = calendar.getTime();
-         if (date.before(new Date())) {
-			date = TimeTaskProcess.addDay(date, 1);
-		}
-         long period = 60*60*1000;
-         timer.schedule(new TotalCCCountTimeTask(), date, period);
+//         Calendar calendar = Calendar.getInstance();
+//         int year = calendar.get(Calendar.YEAR);
+//         int month = calendar.get(Calendar.MONTH);
+//         int day = calendar.get(Calendar.DATE);
+//         calendar.set(year, month, day, 11, 10, 00);
+//         Date date = calendar.getTime();
+//         if (date.before(new Date())) {
+//			date = TimeTaskProcess.addDay(date, 1);
+//		}
+//         long period = 60*60*1000;
+//         timer.schedule(new TotalCCCountTimeTask(), date, period);
     }
 	
 }
