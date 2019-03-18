@@ -186,6 +186,7 @@ public class TBEquityDBOperation {
 		return result;
 	}
 	
+	
 	/**
 	 * 
 	 * @param pvcount
@@ -267,7 +268,7 @@ public class TBEquityDBOperation {
 	public static List<TBEquityData> selectTbEquityDataByTime(String sectime){
 		Connection con = GetConnect.getAliConnection();
 		List<TBEquityData> list = new ArrayList<>();
-		String sql = "select distinct dn,qy_id,qy_name,source,addtime from tb_equity_data where addtime like '"+sectime+" %'";
+		String sql = "select * from tb_equity_data where addtime like '"+sectime+" %' GROUP BY dn";
 		try {
 			Statement statement = con.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);

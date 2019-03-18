@@ -104,7 +104,7 @@ public class CheckDataIsInPhonePool {
 							}
 							
 						}else {
-							log.info(phone+"已经订购成功");
+							log.info(phone+"已有二次确认订购。");
 						}
 
 					}

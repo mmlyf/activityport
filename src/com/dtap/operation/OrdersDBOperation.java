@@ -18,9 +18,9 @@ public class OrdersDBOperation {
 	public static boolean getOrdersDataByPhone(String phone,String addtime) {
 		Connection conn = GetConnect.getConnection();
 		String sql = "select * from orders where Mobile='"+phone+"' "
-				+ "and AddTime like '"+addtime+"%' and ProductId in (SELECT Id\n" + 
-						"FROM products\n" + 
-						"WHERE ProductName LIKE '%低消%') ORDER BY AddTime DESC";
+				+ "and AddTime like '"+addtime+"%' and  BssState is not NULL and ProductId in (SELECT Id " + 
+						"FROM products " + 
+						" WHERE ProductName LIKE '%低消%') ORDER BY AddTime DESC";
 		ResultSet resultSet = null;
 		boolean result = false;
 		try {
