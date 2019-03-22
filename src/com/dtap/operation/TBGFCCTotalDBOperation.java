@@ -7,11 +7,11 @@ import java.sql.Statement;
 
 import com.dtap.connect.GetConnect;
 /**
- * 通建浦发银行信用卡页面浏览数据统计
+ * 广发银行信用卡外呼页面统计
  * @author lvgordon
  *
  */
-public class TBTongjianpfPvDBOperation {
+public class TBGFCCTotalDBOperation {
 	/**
 	 * 查询当前时间是否有PV值，并将值返回
 	 * @param addtime
@@ -20,7 +20,7 @@ public class TBTongjianpfPvDBOperation {
 	public static Integer selectPVCountDataByAddtime(String addtime) {
 		Integer pvcount = null;
 		Connection conn = GetConnect.getAliConnection();
-		String sql = "select * from tb_tongjianpf_pvcount where addtime = '"+addtime+"'";
+		String sql = "select * from tb_gfcc_total where addtime = '"+addtime+"'";
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
@@ -43,7 +43,7 @@ public class TBTongjianpfPvDBOperation {
 	public static boolean insertPvCountDataByAddtime(String addtime) {
 		int inres = 0;
 		Connection conn = GetConnect.getAliConnection();
-		String sql = "insert into tb_tongjianpf_pvcount(pv,addtime) values(1,'"+addtime+"')";
+		String sql = "insert into tb_gfcc_total(pv,addtime) values(1,'"+addtime+"')";
 		try {
 			Statement statement = conn.createStatement();
 			inres = statement.executeUpdate(sql);
@@ -68,7 +68,7 @@ public class TBTongjianpfPvDBOperation {
 	public static boolean updatePvCountDataByAddtime(int pvvalue,String addtime) {
 		int upres = 0;
 		Connection conn = GetConnect.getAliConnection();
-		String sql = "update tb_tongjianpf_pvcount set pv = "+pvvalue+" where addtime = '"+addtime+"'";
+		String sql = "update tb_gfcc_total set pv = "+pvvalue+" where addtime = '"+addtime+"'";
 		try {
 			Statement statement = conn.createStatement();
 			upres = statement.executeUpdate(sql);

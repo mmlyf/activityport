@@ -41,50 +41,63 @@ public class MarketDataTotalTimeTask extends TimerTask{
 	 */
 	private String totalCountForType(String datestr) {
 		Connection conn = GetConnect.getConnection();
+		Connection aliconn = GetConnect.getAliConnection();
 		String result = "";
 		int[] value;
 		DataTotalBean dataTotalBean = new DataTotalBean();
 		String[] sql1 = {"select count(*) from mo_receive where ad_time like ?",
 				"select count(*) from mo_receive where ad_time like ? and ( UPPER(message_content) IN ('Y5','Y8','Y13','Y18','Y23','Y28','Y33','Y38','Y43',"
-				+ "'Y48','Y53','Y58','Y63','Y68','Y73','Y78','Y83','Y88','Y93','Y98','Y108','Y118','Y128','Y138','Y148','Y158','Y168','Y178'," 
-				+"'Y188','Y198','Y208','Y228','Y258','Y288','Y318','Y350','Y400','Y466' ) OR UPPER(message_content) IN ('L5'," 
-				+"'L8','L13','L18','L23','L28','L33','L38','L43','L48','L53','L58','L63','L68','L73','L78',"
-				+"'L83','L88','L93','L98','L108','L118','L128','L138','L148','L158','L168','L178','L188','L198',"
-				+"'L208','L228','L258','L288','L318','L350','L400','L466' )"
-				+ "OR UPPER(message_content) IN ('B38','B48','B58','B68','B78','B88','B98','B108','B118','B128','B138','B148','B158','B168','B178',"
-				+ "'B188','B198','B218','B238','B258','B278','B298','B318','B358','B398' )"
-				+ "OR message_content IN ('12','13','14'))",//查找上行有效所有
-				"select count(*) from mo_receive where ad_time like ? and (UPPER(message_content) IN ('Y5','Y8','Y13','Y18','Y23','Y28','Y33','Y38','Y43'," + 
-				"'Y48','Y53','Y58','Y63','Y68','Y73','Y78','Y83','Y88','Y93','Y98','Y108','Y118','Y128','Y138','Y148','Y158','Y168','Y178'," + 
-				"'Y188','Y198','Y208','Y228','Y258','Y288','Y318','Y350','Y400','Y466' ) OR UPPER(message_content) IN ('L5'," + 
-				"'L8','L13','L18','L23','L28','L33','L38','L43','L48','L53','L58','L63','L68','L73','L78'," + 
-				"'L83','L88','L93','L98','L108','L118','L128','L138','L148','L158','L168','L178','L188','L198'," + 
-				"'L208','L228','L258','L288','L318','L350','L400','L466' ))",//低消上行有效
-				"select count(*) from mo_receive where ad_time like ? and UPPER(message_content) IN ('B38','B48','B58','B68','B78','B88','B98','B108','B118','B128','B138','B148','B158','B168','B178'," + 
-				"'B188','B198','B218','B238','B258','B278','B298','B318','B358','B398' )",//冰激凌上行有效
-				"select count(*) from tb_cbrecord where cd_sendtime like ?",//下行总数
-				"select count(*) from tb_cbrecord where cd_sendtime like ? and cd_sendstat=1",//下行成功
-				"select count(*) from orders where AddTime like ?",//所有订单
-				"select count(*) from orders where AddTime like ? and BssState='0'",//订购成功
-				"select count(*) from orders where AddTime like ? and BssState='0' "
-				+ "and ProductId in (SELECT id  FROM products WHERE ProductName LIKE '%低消%')",//低消订购成功
-				"select count(*) from orders where AddTime like ? and "
-				+ "(BssState!='0' or BssState is null) and "
-				+ "ProductId in (SELECT id  FROM products WHERE ProductName LIKE '%低消%')",//低消订购不成功
-				"select count(*) from ice_dsj_orders where dx_addtime like ?"};
+						+ "'Y48','Y53','Y58','Y63','Y68','Y73','Y78','Y83','Y88','Y93','Y98','Y108','Y118','Y128','Y138','Y148','Y158','Y168','Y178'," 
+						+"'Y188','Y198','Y208','Y228','Y258','Y288','Y318','Y350','Y400','Y466' ) OR UPPER(message_content) IN ('L5'," 
+						+"'L8','L13','L18','L23','L28','L33','L38','L43','L48','L53','L58','L63','L68','L73','L78',"
+						+"'L83','L88','L93','L98','L108','L118','L128','L138','L148','L158','L168','L178','L188','L198',"
+						+"'L208','L228','L258','L288','L318','L350','L400','L466' )"
+						+ "OR UPPER(message_content) IN ('B38','B48','B58','B68','B78','B88','B98','B108','B118','B128','B138','B148','B158','B168','B178',"
+						+ "'B188','B198','B218','B238','B258','B278','B298','B318','B358','B398' )"
+						+ "OR message_content IN ('12','13','14'))",//查找上行有效所有
+						"select count(*) from mo_receive where ad_time like ? and (UPPER(message_content) IN ('Y5','Y8','Y13','Y18','Y23','Y28','Y33','Y38','Y43'," + 
+						"'Y48','Y53','Y58','Y63','Y68','Y73','Y78','Y83','Y88','Y93','Y98','Y108','Y118','Y128','Y138','Y148','Y158','Y168','Y178'," + 
+						"'Y188','Y198','Y208','Y228','Y258','Y288','Y318','Y350','Y400','Y466' ) OR UPPER(message_content) IN ('L5'," + 
+						"'L8','L13','L18','L23','L28','L33','L38','L43','L48','L53','L58','L63','L68','L73','L78'," + 
+						"'L83','L88','L93','L98','L108','L118','L128','L138','L148','L158','L168','L178','L188','L198'," + 
+						"'L208','L228','L258','L288','L318','L350','L400','L466' ))",//低消上行有效
+						"select count(*) from mo_receive where ad_time like ? and UPPER(message_content) IN ('B38','B48','B58','B68','B78','B88','B98','B108','B118','B128','B138','B148','B158','B168','B178'," + 
+						"'B188','B198','B218','B238','B258','B278','B298','B318','B358','B398' )",//冰激凌上行有效
+						"select count(*) from tb_cbrecord where cd_sendtime like ?",//下行总数
+						"select count(*) from tb_cbrecord where cd_sendtime like ? and cd_sendstat=1",//下行成功
+						"select count(*) from orders where AddTime like ?",//所有订单
+						"select count(*) from orders where AddTime like ? and BssState='0'",//订购成功
+						"select count(*) from orders where AddTime like ? and BssState='0' "
+						+ "and ProductId in (SELECT id  FROM products WHERE ProductName LIKE '%低消%')",//低消订购成功
+						"select count(*) from orders where AddTime like ? and "
+						+ "(BssState!='0' or BssState is null) and "
+						+ "ProductId in (SELECT id  FROM products WHERE ProductName LIKE '%低消%')",//低消订购不成功
+		"select count(*) from ice_dsj_orders where dx_addtime like ?"};
 		int[] a = new int[11];
-		for(int i=0;i<sql1.length;i++) {
-			try {
-				PreparedStatement ppst = conn.prepareStatement(sql1[i]);
-				ppst.setString(1, datestr+" %");
-				ResultSet resultSet = ppst.executeQuery();
-				while (resultSet.next()) {
-					a[i] = resultSet.getInt(1);
+		try {
+			for(int i=0;i<sql1.length;i++) {
+
+				if (i==4||i==5) {
+					PreparedStatement ppst = aliconn.prepareStatement(sql1[i]);
+					ppst.setString(1, datestr+" %");
+					ResultSet resultSet = ppst.executeQuery();
+					while (resultSet.next()) {
+						a[i] = resultSet.getInt(1);
+					}
+				}else {
+					PreparedStatement ppst = conn.prepareStatement(sql1[i]);
+					ppst.setString(1, datestr+" %");
+					ResultSet resultSet = ppst.executeQuery();
+					while (resultSet.next()) {
+						a[i] = resultSet.getInt(1);
+					}
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
+			conn.close();
+			aliconn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		dataTotalBean.setMoall(a[0]);//上行总
 		dataTotalBean.setMoable(a[1]);//上行有效
