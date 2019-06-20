@@ -183,4 +183,31 @@ public class DBOperation {
 		}
 		return list;
 	}
+	
+	/**
+	 * 存储用户点击链接的记录
+	 * @param phone
+	 * @return
+	 */
+	public static boolean insertUserClickData(String phone) {
+		Connection connection = GetConnect.getAliConnection();
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());
+		String sql = "insert into tb_clickdata(dn,addtime) values (?,?)";
+		int inres = 0;
+		try {
+			PreparedStatement ppst = connection.prepareStatement(sql);
+			ppst.setString(1, phone);
+			ppst.setTimestamp(2, timestamp);
+			inres = ppst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (inres>0) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

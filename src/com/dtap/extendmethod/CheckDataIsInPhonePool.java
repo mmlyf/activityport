@@ -29,6 +29,13 @@ import sun.util.logging.resources.logging;
 public class CheckDataIsInPhonePool {
 	private static Logger log = Logger.getLogger(CheckDataIsInPhonePool.class);
 	private static ExecutorService actipool = Executors.newSingleThreadExecutor();
+	
+	/**
+	 * 查询号码是否在号池内
+	 * 并定时进行触发短信
+	 * @param phone
+	 * @return
+	 */
 	public static Map<String, String> selectDataInPool(String phone){
 		Map<String, String> map = new HashMap<>();
 		DsjIceDataBean dataBean;
@@ -52,7 +59,7 @@ public class CheckDataIsInPhonePool {
 		}
 	}
 	/**
-	 * 
+	 * 根据产品类型和档位获取当前的营销短信的内容
 	 * @param phone
 	 * @param dw
 	 * @param firp
@@ -77,7 +84,7 @@ public class CheckDataIsInPhonePool {
 	}
 
 	/**
-	 * 
+	 * 定时进行触发营销短信
 	 * @param phone
 	 * @param miscontent
 	 */

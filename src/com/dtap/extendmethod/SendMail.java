@@ -29,8 +29,8 @@ public class SendMail {
 	private static Address[] receivedeve;
 	static {
 		try {
-			receiceone = InternetAddress.parse("32223815@qq.com,1453806177@qq.com");
-			receivedeve = InternetAddress.parse("1453806177@qq.com");
+			receiceone = InternetAddress.parse("32223815@qq.com,yingy@mobile99.cn	");
+			receivedeve = InternetAddress.parse("yingy@mobile99.cn");
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
