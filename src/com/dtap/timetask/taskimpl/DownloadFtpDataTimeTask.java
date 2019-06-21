@@ -31,7 +31,6 @@ public class DownloadFtpDataTimeTask extends TimerTask {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		HTTPRequest.sendGet("http://localhost:8085/HSDT_Market_Platform/timetask/download", "");
+		HTTPRequest.sendGet("http://aimk.mobile99.cn:8089/HSDT_Market_Platform/timetask/download", "");
 	}
-	
 }
